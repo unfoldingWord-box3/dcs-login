@@ -4,7 +4,7 @@ import deepFreeze from 'deep-freeze'
 import { defaultErrorMessages, parseError } from '../utils/parseError'
 
 import { useDeepCompareCallback, useDeepCompareEffect } from 'use-deep-compare'
-import { authenticate } from '@utils/authentication'
+import { authenticate } from '../utils/authentication'
 
 function useAuthentication({
   messages,

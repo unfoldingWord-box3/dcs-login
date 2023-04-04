@@ -12,9 +12,9 @@ import Link from '@mui/material/Link'
 import CircularProgress from '@mui/material/CircularProgress'
 import Stack from '@mui/material/Stack'
 
-import SettingsForm from '@components/forms/SettingsForm'
-import { PASSWORD_RECOVERY_LINK, SIGNUP_LINK } from '@common/constants'
-import { AuthContext } from '@context/AuthContext'
+import SettingsForm from './SettingsForm'
+import { PASSWORD_RECOVERY_LINK, SIGNUP_LINK } from '../common/constants'
+import { AuthContext } from '../context/AuthContext'
 
 const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState('')

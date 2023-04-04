@@ -1,9 +1,9 @@
-import {
-  checkIfServerOnline,
-  ERROR_NETWORK_DISCONNECTED,
-  ERROR_SERVER_DISCONNECT_ERROR,
-  get,
-} from 'gitea-react-toolkit'
+// import {
+//   checkIfServerOnline,
+//   ERROR_NETWORK_DISCONNECTED,
+//   ERROR_SERVER_DISCONNECT_ERROR,
+//   get,
+// } from 'gitea-react-toolkit'
 import {
   AUTHENTICATION_ERROR,
   BASE_URL,
@@ -17,8 +17,8 @@ import {
   SERVER_MAX_WAIT_TIME_RETRY,
   SERVER_OTHER_ERROR,
   SERVER_UNREACHABLE_ERROR,
-} from '@common/constants'
-import { getLocalStorageItem, setLocalStorageValue } from '@hooks/useUserLocalStorage'
+} from '../common/constants'
+import { getLocalStorageItem, setLocalStorageValue } from '../hooks/useUserLocalStorage'
 
 export const NETWORK_DISCONNECT_ERROR = 'networkDisconnectError'
 export const SERVER_CHECK_SECOND_TRY_KEY = 'serverCheckSecondTry'
