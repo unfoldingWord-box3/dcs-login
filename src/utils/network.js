@@ -1,5 +1,4 @@
 import {
-  BASE_URL,
   CHECKING_SERVER,
   HTTP_GET_MAX_WAIT_TIME,
 } from '../common/constants'
@@ -21,14 +20,14 @@ export function unAuthenticated(httpCode) {
  * @param {boolean} noCache - if false then cached data can be used, if true then no caching.  Defaults to true
  * @return {Promise<object>} returns http response or throws exception if
  */
-export function doFetch(url, authentication={}, timeout=HTTP_GET_MAX_WAIT_TIME, noCache=true) {
+export function doFetch(server, url, authentication={}, timeout=HTTP_GET_MAX_WAIT_TIME, noCache=true) {
   const authConfig = authentication?.config || {}
   return get({
     url: url,
     config: {
       ...authConfig,
       timeout: timeout,
-      server: BASE_URL,
+      server: server,
     },
     noCache: noCache,
     fullResponse: true,

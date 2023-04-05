@@ -1,14 +1,29 @@
 # Login to DCS
 
-A Login Component.
+This is a Login Component for use with Door43 Content Services (DCS).
 
 ```jsx
-import React, { useState } from 'react'
+import AuthContextProvider from '../context/AuthContext.js'
+import LoginForm from './LoginForm.js';
 
 const Component = () => {
 
+  const onSuccess = () => {
+    alert(`onSuccess()`)
+  }
+  const onError = () => {
+    alert(`onError()`)
+  }
+  const onGuest = () => {
+    alert(`onError()`)
+  }
+
   return (
-    <h1>This is where the login component demo will be</h1>
+    <AuthContextProvider>
+    <LoginForm onSuccess={onSuccess} onError={onError} onGuest={onGuest}
+      server={'https://qa.door43.org'} tokenid={'gatewayTranslate'}
+    />
+    </AuthContextProvider>
   )
 }
 

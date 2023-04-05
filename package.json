@@ -51,9 +51,10 @@
   },
   "dependencies": {
     "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "axios": "^0.27.2",
     "deep-equal": "^2.0.5",
-    "react-draggable": "^4.4.3",
     "styled-components": "^5.2.1",
     "localforage": "1.10.0",
     "use-deep-compare": "1.1.0",

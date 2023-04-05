@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import PersonIcon from '@mui/icons-material/Person'
 import VpnKeyIcon from '@mui/icons-material/VpnKey'
@@ -12,17 +12,20 @@ import Link from '@mui/material/Link'
 import CircularProgress from '@mui/material/CircularProgress'
 import Stack from '@mui/material/Stack'
 
-import SettingsForm from './SettingsForm'
+import SettingsForm from '../common/SettingsForm'
 import { PASSWORD_RECOVERY_LINK, SIGNUP_LINK } from '../common/constants'
 import { AuthContext } from '../context/AuthContext'
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = ({ onSuccess, onError, onGuest, server, tokenid }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const {
     state: { authentication, networkError, error, isLoadingRemote },
-    actions: { onLoginFormSubmit, onLoginFormSubmitLogin, logout },
+    actions: { onLoginFormSubmit, onLoginFormSubmitLogin, logout, setServer, setTokenid },
   } = useContext(AuthContext)
+
+  setServer(server)
+  setTokenid(tokenid)
 
   const [keepLoggedIn, setKeepLoggedIn] = useState(
     authentication?.remember || false
@@ -35,11 +38,11 @@ const LoginForm = ({ onLogin }) => {
   }
 
   useEffect(() => {
-    if (!!authentication?.token && onLogin) {
+    if (!!authentication?.token && onSuccess) {
       console.log('New token found:', { newToken: authentication?.token.sha1 })
-      onLogin()
+      onSuccess()
     }
-  }, [authentication?.token, onLogin])
+  }, [authentication?.token, onSuccess])
 
   const [disabled, setDisabled] = useState()
 

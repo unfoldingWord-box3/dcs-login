@@ -1,7 +1,6 @@
-import { createContext, useState } from 'react'
+import React, { createContext, useState } from 'react'
 import localforage from 'localforage'
 import {
-  BASE_URL,
   CLOSE,
   HTTP_GET_MAX_WAIT_TIME,
   SERVER_KEY,
@@ -16,7 +15,8 @@ export const AuthContext = createContext({})
 export default function AuthContextProvider(props) {
   const [authentication, setAuthentication] = useState(null)
   const [networkError, setNetworkError] = useState(null)
-  const [server, setServer] = useLocalStorage(SERVER_KEY, BASE_URL)
+  const [server, setServer] = useLocalStorage(SERVER_KEY, '')
+  const [tokenid, setTokenid] = useLocalStorage(TOKEN_ID, '')
 
   /**
    * in the case of a network error, process and display error dialog
@@ -45,7 +45,7 @@ export default function AuthContextProvider(props) {
 
     if (auth) {
       // verify that auth is still valid
-      doFetch(`${server}/api/v1/user`, auth, HTTP_GET_MAX_WAIT_TIME)
+      doFetch(server, `${server}/api/v1/user`, auth, HTTP_GET_MAX_WAIT_TIME)
         .then(response => {
           const httpCode = response?.status || 0
 
@@ -110,7 +110,7 @@ export default function AuthContextProvider(props) {
     onAuthentication: setAuthentication,
     config: {
       server,
-      tokenid: TOKEN_ID,
+      tokenid,
       timeout: HTTP_GET_MAX_WAIT_TIME,
     },
     messages: props.messages,
@@ -130,6 +130,7 @@ export default function AuthContextProvider(props) {
       logout,
       setNetworkError,
       setServer,
+      setTokenid,
     },
     config,
   }
