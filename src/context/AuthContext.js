@@ -6,11 +6,10 @@ import {
   HTTP_GET_MAX_WAIT_TIME,
   SERVER_KEY,
   TOKEN_ID,
-} from '../common/constants'
-import { doFetch, processNetworkError, unAuthenticated } from '../utils/network'
-import NetworkErrorPopup from './NetworkErrorPopUp'
-import useLocalStorage from '../hooks/useLocalStorage'
-import useAuthentication from '../hooks/useAuthentication'
+} from '../common/constants';
+import { doFetch, processNetworkError, unAuthenticated } from '../utils/network';
+import useLocalStorage from '../hooks/useLocalStorage';
+import useAuthentication from '../hooks/useAuthentication';
 
 export const AuthContext = createContext({})
 

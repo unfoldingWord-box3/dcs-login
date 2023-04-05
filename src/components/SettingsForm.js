@@ -4,7 +4,7 @@ import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
 import FormHelperText from '@mui/material/FormHelperText'
 import Typography from '@mui/material/Typography'
-import TOKEN_ID from '../common/constants'
+// import TOKEN_ID from '../common/constants'
 
 const SettingsForm = ({
   children,
@@ -28,7 +28,7 @@ const SettingsForm = ({
     >
       <Box
         sx={{
-          [`& .${TOKEN_ID}-MuiTextField-root`]: { my: 10 },
+          [`& .${'login'}-MuiTextField-root`]: { my: 10 },
           textAlign: 'center',
         }}
         noValidate
@@ -48,3 +48,14 @@ const SettingsForm = ({
 }
 
 export default SettingsForm
+
+/* code graveyard
+      <Box
+        sx={{
+          [`& .${TOKEN_ID}-MuiTextField-root`]: { my: 10 },
+          textAlign: 'center',
+        }}
+        noValidate
+        autoComplete='off'
+      >
+*/
