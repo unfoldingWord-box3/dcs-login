@@ -6,7 +6,7 @@ export const ERROR_NETWORK_ERROR = 'Network Error'
 export const defaultErrorMessages = {
   actionText: 'Login',
   genericError: 'Something went wrong, please try again.',
-  usernameError: 'Username does not exist.',
+  usernameError: 'Username does not exist or password is invalid.',
   passwordError: 'Password is invalid.',
   networkError:
     'There is an issue with your network connection. Please try again.',

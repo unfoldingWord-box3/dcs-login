@@ -30,18 +30,26 @@ const getToken = async ({ username, password, config, userClient }) => {
 
 }
 
-const getUser = async ({ userClient }) => {
-    return userClient.userGetCurrent().then(({ data }) => data).catch(console.error)
+const getUser = async ({ userClient, username }) => {
+  try {
+    const user = await userClient.userGetCurrent()
+    .then(({ data }) => data)
+    return user
+  } catch (e) {
+    return null
+  }
 }
 
 export const getUserAuth = async ({ username, password, config }) => {
   console.log(config)
   const basePath = config.server + '/api/v1'
   const userClient = new UserApi({ basePath, username, password })
-  const token = getToken({ username, password, config, userClient })
-  const user = getUser({ userClient })
+  // need to await so that getToken is attempted when user is unknown
+  const user = await getUser({ userClient, username })
+  // no need to attempt to get a token if getUser() fails
+  const token = user ? await getToken({ username, password, config, userClient }) : null
   return {
-    token: await token,
-    user: await user,
+    token: token,
+    user: user,
   }
 }

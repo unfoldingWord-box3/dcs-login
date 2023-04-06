@@ -24,8 +24,13 @@ const LoginForm = ({ onSuccess, onError, onGuest, server, tokenid }) => {
     actions: { onLoginFormSubmit, onLoginFormSubmitLogin, logout, setServer, setTokenid },
   } = useContext(AuthContext)
 
-  setServer(server)
-  setTokenid(tokenid)
+  useEffect( () => {
+    // Note: the set state functions have to wait until
+    // the login component is rendered before updating
+    // the context. So this useEffect wrapper
+    setServer(server)
+    setTokenid(tokenid)
+  }, [setServer, setTokenid])
 
   const [keepLoggedIn, setKeepLoggedIn] = useState(
     authentication?.remember || false
