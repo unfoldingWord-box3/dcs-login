@@ -20,7 +20,7 @@ const Component = () => {
 
   return (
     <AuthContextProvider>
-    <LoginForm onSuccess={onSuccess} onError={onError} onGuest={onGuest}
+    <LoginForm onSuccess={onSuccess} onGuest={onGuest}
       server={'https://qa.door43.org'} tokenid={'gatewayTranslate'}
     />
     </AuthContextProvider>

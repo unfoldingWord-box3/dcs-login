@@ -36,6 +36,12 @@ const getUser = async ({ userClient, username }) => {
     .then(({ data }) => data)
     return user
   } catch (e) {
+    // A network error looks like this:
+    // getUser() error: Error: Network Error
+    console.log("getUser() error:",e.message)
+    if ( e.message.startsWith("Network Error") ) {
+      throw e
+    }
     return null
   }
 }

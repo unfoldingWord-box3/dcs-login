@@ -1,12 +1,11 @@
 import React, { createContext, useState } from 'react'
 import localforage from 'localforage'
 import {
-  CLOSE,
   HTTP_GET_MAX_WAIT_TIME,
   SERVER_KEY,
   TOKEN_ID,
 } from '../common/constants';
-import { doFetch, processNetworkError, unAuthenticated } from '../utils/network';
+import { doFetch, unAuthenticated } from '../utils/network';
 import useLocalStorage from '../hooks/useLocalStorage';
 import useAuthentication from '../hooks/useAuthentication';
 
@@ -14,26 +13,8 @@ export const AuthContext = createContext({})
 
 export default function AuthContextProvider(props) {
   const [authentication, setAuthentication] = useState(null)
-  const [networkError, setNetworkError] = useState(null)
   const [server, setServer] = useLocalStorage(SERVER_KEY, '')
   const [tokenid, setTokenid] = useLocalStorage(TOKEN_ID, '')
-
-  /**
-   * in the case of a network error, process and display error dialog
-   * @param {string|Error} error - initial error message message or object
-   * @param {number} httpCode - http code returned
-   */
-  function processError(error, httpCode = 0) {
-    processNetworkError(
-      error,
-      httpCode,
-      null,
-      null,
-      setNetworkError,
-      null,
-      null
-    )
-  }
 
   const myAuthStore = localforage.createInstance({
     driver: [localforage.INDEXEDDB],
@@ -60,7 +41,7 @@ export default function AuthContextProvider(props) {
               )
               logout()
             } else {
-              processError(null, httpCode)
+              logout()
             }
           }
         })
@@ -69,7 +50,7 @@ export default function AuthContextProvider(props) {
             `TranslationSettings - hard error fetching user info, error=`,
             e
           )
-          processError(e)
+          logout()
         })
     }
     return auth
@@ -97,7 +78,8 @@ export default function AuthContextProvider(props) {
 
   const onError = e => {
     console.warn('AuthContextProvider - auth error', e)
-    processError(e?.errorMessage)
+    // errorReturn && errorReturn(e.toString())
+    // processError(e?.errorMessage)
   }
 
   async function logout() {
@@ -122,15 +104,16 @@ export default function AuthContextProvider(props) {
   const value = {
     state: {
       ...state,
-      networkError,
+      // networkError,
       server,
     },
     actions: {
       ...actions,
       logout,
-      setNetworkError,
+      // setNetworkError,
       setServer,
       setTokenid,
+      // setErrorReturn,
     },
     config,
   }
@@ -138,13 +121,6 @@ export default function AuthContextProvider(props) {
   return (
     <AuthContext.Provider value={value}>
       {props.children}
-      {!!networkError && (
-        <NetworkErrorPopup
-          networkError={networkError}
-          setNetworkError={setNetworkError}
-          closeButtonStr={CLOSE}
-        />
-      )}
     </AuthContext.Provider>
   )
 }

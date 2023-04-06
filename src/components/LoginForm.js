@@ -21,7 +21,7 @@ const LoginForm = ({ onSuccess, onError, onGuest, server, tokenid }) => {
   const [password, setPassword] = useState('')
   const {
     state: { authentication, networkError, error, isLoadingRemote },
-    actions: { onLoginFormSubmit, onLoginFormSubmitLogin, logout, setServer, setTokenid },
+    actions: { onLoginFormSubmit, onLoginFormSubmitLogin, logout, setServer, setTokenid, setErrorReturn },
   } = useContext(AuthContext)
 
   useEffect( () => {
@@ -30,7 +30,8 @@ const LoginForm = ({ onSuccess, onError, onGuest, server, tokenid }) => {
     // the context. So this useEffect wrapper
     setServer(server)
     setTokenid(tokenid)
-  }, [setServer, setTokenid])
+    // setErrorReturn(onError)
+  }, [setServer, setTokenid, setErrorReturn])
 
   const [keepLoggedIn, setKeepLoggedIn] = useState(
     authentication?.remember || false
